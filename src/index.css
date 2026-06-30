@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ink-50 text-ink-900 font-sans antialiased;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Numbers that need to line up (balances, miles, member numbers) */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold
+      transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50
+      focus:outline-none focus-visible:ring-2 focus-visible:ring-aero-400 focus-visible:ring-offset-2;
+  }
+  .btn-primary {
+    @apply btn bg-aero-600 text-white shadow-soft hover:bg-aero-700 hover:shadow-lift active:scale-[0.98];
+  }
+  .btn-gold {
+    @apply btn bg-gradient-to-br from-gold-300 to-gold-500 text-gold-950 shadow-soft hover:from-gold-200 hover:to-gold-400 active:scale-[0.98];
+  }
+  .btn-ghost {
+    @apply btn bg-white text-ink-700 ring-1 ring-inset ring-ink-200 hover:bg-ink-50 hover:ring-ink-300 active:scale-[0.98];
+  }
+  .btn-dark {
+    @apply btn bg-ink-950 text-white hover:bg-ink-900 active:scale-[0.98];
+  }
+  .btn-danger {
+    @apply btn bg-white text-red-600 ring-1 ring-inset ring-red-200 hover:bg-red-50 active:scale-[0.98];
+  }
+
+  .card {
+    @apply rounded-2xl bg-white shadow-card ring-1 ring-ink-100;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold;
+  }
+
+  .input {
+    @apply w-full rounded-xl border-0 bg-white px-4 py-3 text-ink-900 shadow-sm ring-1 ring-inset ring-ink-200
+      placeholder:text-ink-400 focus:outline-none focus:ring-2 focus:ring-aero-500 transition;
+  }
+
+  .label {
+    @apply block text-xs font-semibold uppercase tracking-wide text-ink-500 mb-1.5;
+  }
+
+  /* Subtle scroll fade for tables */
+  .scroll-shadow {
+    background:
+      linear-gradient(white 30%, rgba(255, 255, 255, 0)) 0 0,
+      linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%,
+      radial-gradient(farthest-side at 50% 0, rgba(11, 18, 32, 0.08), rgba(0, 0, 0, 0)) 0 0,
+      radial-gradient(farthest-side at 50% 100%, rgba(11, 18, 32, 0.08), rgba(0, 0, 0, 0)) 0 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 28px, 100% 28px, 100% 10px, 100% 10px;
+    background-attachment: local, local, scroll, scroll;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-aero-500 via-aero-400 to-gold-400 bg-clip-text text-transparent;
+  }
+  .bg-aurora {
+    background:
+      radial-gradient(60% 80% at 12% 8%, rgba(47, 196, 191, 0.20), transparent 60%),
+      radial-gradient(54% 64% at 96% 2%, rgba(255, 192, 32, 0.16), transparent 56%),
+      radial-gradient(72% 82% at 82% 100%, rgba(13, 132, 135, 0.14), transparent 60%);
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Custom range slider used for points + cash blends */
+input[type="range"].miles-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  border-radius: 9999px;
+  outline: none;
+}
+input[type="range"].miles-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 9999px;
+  background: white;
+  border: 3px solid #0d8487;
+  box-shadow: 0 2px 8px rgba(11, 18, 32, 0.2);
+  cursor: pointer;
+}
+input[type="range"].miles-range::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 9999px;
+  background: white;
+  border: 3px solid #0d8487;
+  box-shadow: 0 2px 8px rgba(11, 18, 32, 0.2);
+  cursor: pointer;
+}
+
+/* ── Ambient motion & texture ─────────────────────────────────────────────── */
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(28px, -22px) scale(1.08); }
+  66% { transform: translate(-22px, 16px) scale(0.95); }
+}
+@keyframes drift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-32px, 26px) scale(1.12); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes sheen {
+  0% { transform: translateX(-120%) skewX(-12deg); }
+  60%, 100% { transform: translateX(220%) skewX(-12deg); }
+}
+
+.animate-drift { animation: drift 19s ease-in-out infinite; }
+.animate-drift-slow { animation: drift2 26s ease-in-out infinite; }
+.animate-marquee { animation: marquee 42s linear infinite; }
+
+/* premium film grain */
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* fade the edges of a horizontal marquee */
+.mask-edges {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+/* moving-light sheen used on CTAs / cards */
+.sheen { position: relative; overflow: hidden; }
+.sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%);
+  transform: translateX(-120%) skewX(-12deg);
+}
+.sheen:hover::after { animation: sheen 0.9s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-drift, .animate-drift-slow, .animate-marquee, .animate-float,
+  .animate-pulse-ring, .sheen::after { animation: none !important; }
+}
